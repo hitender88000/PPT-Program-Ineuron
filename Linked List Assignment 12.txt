@@ -1,0 +1,179 @@
+1.
+
+class Solution {
+    deleteMid(node)
+    {
+        //your codere
+        head = node;
+        let slow = head;
+        let fast = head;
+        
+        if(head == null || head.next == null){
+            return NULL
+        } else {
+            while (fast!= null && fast.next!= null){
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            if(slow.next == null){
+                head.next = null
+                return head
+                
+            }
+            slow.data = slow.next.data;
+            slow.next = slow.next.next;
+        }
+        return node;
+        
+        
+    }
+}
+-----------------------------------------------------------------
+
+2.
+
+class Solution {
+    //Function to check if the linked list has a loop.
+    detectLoop(head)
+    {
+        //your code here
+        if(head == null )
+            return 'False'
+        
+        let l1 = head;
+        let l2 = head;
+        while(l2!=null && l2.next!=null){
+            l1=l1.next;
+            l2=l2.next.next;
+            if(l1==l2)
+                return 'True'
+            
+        }
+        
+       return 'False'
+        
+    }
+}
+----------------------------------------------------------------
+3.Remove Nth Node From End of List
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+Solution: /**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+    let s = head;
+    let f = head;
+    for(let i = 0; i < n; i++){
+        f = f.next;
+    if(f == null)
+        return head.next; // condition for first node removel
+    }
+    while(f.next !=null){
+        f = f.next;
+        s = s.next;
+    }
+    s.next = s.next.next;
+    return head
+};
+
+---------------------------------------------------------------
+4. Palindrome Linked List
+Given the head of a singly linked list, return true if it is a 
+palindrome or false otherwise.
+
+Solution: 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function(head) {
+    // Step 1- Find the Middle which is slow
+    let s = head;
+    let f = head;
+    while(f!= null && f.next != null) {
+        s = s.next;
+        f = f.next.next;
+    }
+    // Step 2 - Reverse the second list after slow
+
+    let  prev = s;
+    s = s.next;
+    prev.next = null;  // to make middle pointer null;
+    while(s!=null){
+        let temp = s.next;
+        s.next = prev;
+        prev = s;
+        s = temp;       
+    }
+    //Step 3 - Traverse and check values
+    
+    f = head;
+    s = prev;
+    while(s!=null){
+        if(s.val != f.val) {
+            return false
+        } else {
+            s = s.next;
+            f = f.next
+        }        
+    }
+    return true
+
+    
+};
+
+--------------------------------------------------------------------
+5.
+class Solution {
+    //Function to remove a loop in the linked list.
+    removeLoop(head)
+    {
+        //your code here
+        let slow = head;
+        let fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast) {
+                break;
+            } 
+        }
+        if (slow == fast){
+            slow = head;
+            if(slow != fast){
+                while (slow.next != fast.next){
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                fast.next = null;
+                return true
+            } else {
+                while (fast.next!= slow){
+                    fast = fast.next;
+                }
+                fast.next = null;
+                return true;
+            }
+            
+        }
+        return false
+    }
+    
+}
